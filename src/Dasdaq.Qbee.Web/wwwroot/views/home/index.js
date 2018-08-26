@@ -1,5 +1,6 @@
 ﻿component.data = function () {
     return {
+
     };
 };
 

@@ -10,9 +10,15 @@
         eos: null,
         network: null,
         account: null,
-        chainId: null
+        chainId: null,
+        currencies: []
     },
     created: function () {
+        var self = this;
+        qv.get('/api/currency', {})
+            .then(data => {
+                self.currencies = data;
+            });
     },
     watch: {
     },
