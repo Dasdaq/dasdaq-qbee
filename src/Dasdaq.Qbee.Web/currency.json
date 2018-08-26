@@ -1,0 +1,14 @@
+[
+  {
+    "id": "POMELO",
+    "description": "POMELO是柚子加速器发行代币",
+    "pin": true,
+    "website": "https://boost.game"
+  },
+  {
+    "id": "SATOKO",
+    "description": "SATOKO是由itegame发行的代币，ITE 是首款基于 EOS 开发的星际探索博弈游戏，由智能合约控制自动循环开局。每局参与用户博弈的结果将导致文明的发展将走上不同的分叉路径。",
+    "pin": true,
+    "website": "https://ite.zone"
+  }
+]

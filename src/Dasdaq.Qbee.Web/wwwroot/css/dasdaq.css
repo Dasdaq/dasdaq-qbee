@@ -1,0 +1,249 @@
+body {
+    background: #131313;
+    color: rgb(153, 153, 153);
+}
+
+nav li a {
+    transition: all 0.2s linear;
+    color: rgb(153, 153, 153);
+    border-bottom: 3px solid #131313
+}
+
+nav li a.active, nav li a:hover {
+    color: #f8c80f!important;
+    background: none!important;
+}
+
+nav li a.active {
+    border-bottom: 3px solid #f8c80f
+}
+
+.navbar-brand {
+    padding: 5px 0;
+}
+
+.navbar-brand img {
+    height: 43px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.navbar-toggle, .navbar-toggle span {
+    color: #f8c80f!important;
+}
+
+.scatter-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s linear;
+}
+
+nav li:hover .scatter-icon {
+    opacity: 1;
+}
+
+.banner {
+    margin-top: 100px;
+    max-width: 90%;
+}
+
+.banner-outer {
+    text-align: center;
+    background: url("../img/banner-bg.png");
+    height: 400px;
+}
+
+.section-title {
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+h2.section-title {
+    font-size: 30px;
+}
+
+h3.section-title {
+    margin-top: 0;
+    font-size: 16px;
+}
+
+.section-title-underscore {
+    background: rgb(102, 83, 5);
+    width: 25px;
+    height: 3px;
+    display: inline-block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.trade-tile {
+    float: left;
+    height: 90px;
+    width: 84px;
+    background: #f8c80f;
+    color: #fff;
+    text-align: center;
+    font-weight: 500;
+    margin-right: 15px;
+}
+
+.trade-count {
+    margin-top: 5px;
+    font-size: 36px;
+}
+
+.trade-subtitle {
+    font-size: 16px;
+}
+
+.btn {
+    border: 1px solid #f8c80f;
+    color: #f8c80f;
+    transition: all 0.2s linear;
+}
+
+.btn:hover {
+    background: #f8c80f;
+    color: #fff;
+}
+
+.hr {
+    border-color: #f8c80f;
+    border-style: dashed;
+}
+
+.trade-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 15px 0;
+    border-top: 2px dashed rgb(102, 83, 5);
+}
+
+.trade-table td {
+    padding: 10px 15px;
+    font-size: 12px;
+}
+
+.currency-description {
+    min-height: 62px;
+}
+
+.currency-container .row {
+    margin-top: 30px;
+    margin-bottom: 55px;
+}
+
+.currency-container .row:first-child {
+    margin-bottom: 30px;
+}
+
+@media(max-width: 992px) {
+    .currency-container .row {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    
+    .currency-container .row .col-md-6 {
+        margin-bottom: 55px;
+    }
+}
+
+.navbar-container {
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.footer {
+    background: #202020;
+    padding: 15px 0 25px 0;
+}
+
+.footer ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+.footer ul a {
+    color: rgb(153, 153, 153);
+    transition: all 0.2s linear;
+}
+
+.footer ul a:hover {
+    color: #f8c80f;
+    text-decoration: none;
+}
+
+.copyright {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.notification {
+    position: fixed;
+    right: 0;
+    top: 50px;
+    width: 380px;
+    background: rgb(57,57,57);
+    border-left: 5px solid #ccc;
+    z-index: 999999;
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    margin-right: -380px;
+    opacity: 0;
+    padding: 10px 15px;
+    transition: margin 0.2s linear, opacity 0.2s linear;
+}
+
+    .notification.active {
+        margin-right: 0;
+        opacity: 1;
+    }
+
+    .notification.succeeded {
+        color: #16b368;
+        border-left: 5px solid #16b368;
+    }
+
+    .notification.warning {
+        color: #f39800;
+        border-left: 5px solid #f39800;
+    }
+
+    .notification.error {
+        color: #fb6666;
+        border-left: 5px solid #fb6666;
+    }
+
+    .notification.important {
+        color: #ed5f82;
+        border-left: 5px solid #ed5f82;
+    }
+
+    .notification.pending {
+        color: #8fd6f8;
+        border-left: 5px solid #8fd6f8;
+    }
+
+.notification-detail {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.notification-button-outer {
+    margin-top: 10px;
+}
+
+.notification-button {
+    background-color: #555;
+    color: #bbb;
+    font-size: 12px;
+    padding: 5px 10px;
+    transition: all 0.2s linear;
+}
+
+    .notification-button:hover {
+        background-color: #ed5f82;
+        color: #fff;
+        text-decoration: none;
+    }
