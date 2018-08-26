@@ -85,7 +85,7 @@ namespace Dasdaq.Qbee.KdataRunner
             {
                 (ret.values as List<Candlestick>).Add(new Candlestick
                 {
-                    catalog = config.Log.CatalogPrefix,
+                    catalog = config.Log.CatalogPrefix + x.AssetSymbol,
                     price = x.Per
                 });
             }
@@ -100,7 +100,7 @@ namespace Dasdaq.Qbee.KdataRunner
             {
                 (ret.values as List<Transaction>).Add(new Transaction
                 {
-                    catalog = config.Log.CatalogPrefix,
+                    catalog = config.Log.CatalogPrefix + x.AssetSymbol,
                     price = x.TotalEos,
                     count = x.AssetAmount,
                     user = x.Buyer,
