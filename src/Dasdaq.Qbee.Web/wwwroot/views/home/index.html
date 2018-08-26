@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6" v-for="x in $root.currencies">
+            <div class="col-md-6" v-for="x in $root.currencies.filter(y => y.pin)">
                 <div class="trade-tile">
                     <div class="trade-count">{{ x.buys.length + x.sells.length }}</div>
                     <div class="trade-subtitle">正在进行</div>
