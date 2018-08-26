@@ -29,7 +29,7 @@ namespace Dasdaq.Qbee.Web.Controllers
                 ret.Add("chain_id", dic["chain_id"]);
                 ret.Add("protocol", protocol);
                 ret.Add("port", config["chain:host"].Contains(":") 
-                    ? Convert.ToInt32(config["chain:host"].Split(":")[1]) 
+                    ? Convert.ToInt32(config["chain:host"].Split(":")[2]) 
                     : (protocol == "http" ? 80 : 443));
                 ret.Add("host", config["chain:host"]
                     .Substring(config["chain:host"].IndexOf("//") + 2).Split(':')[0]);

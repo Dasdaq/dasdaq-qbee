@@ -39,7 +39,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <!-- <li><a href="http://mb.bootcss.com" onclick="_hmt.push(['_trackEvent', 'docv3-navbar', 'click', 'themes'])" target="_blank">主题/模板</a></li> -->
-                    <li><a href="#" target="_blank"><img class="scatter-icon" src="img/scatter.png" />Scatter登录</a></li>
+                    <li>
+                        <a v-if="!$root.account" v-on:click="init_scatter()" target="_blank"><img class="scatter-icon" src="img/scatter.png" />Scatter登录</a>
+                        <a v-if="$root.account">欢迎您，<span>{{ $root.account.name }}</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>

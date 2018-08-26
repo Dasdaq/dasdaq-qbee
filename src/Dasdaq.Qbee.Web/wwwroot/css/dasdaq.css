@@ -247,3 +247,7 @@ h3.section-title {
         color: #fff;
         text-decoration: none;
     }
+
+a {
+    cursor: pointer;
+}
