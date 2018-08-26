@@ -1,0 +1,10 @@
+﻿{
+  "Chain": {
+    "Host": "http://127.0.0.1:8888",
+    "ContractAccount": "pomelo"
+  },
+  "Log": {
+    "CatalogPrefix": "OneBox-",
+    "Api": "https://dasdaq-webapi.chinacloudsites.cn"
+  }
+}
