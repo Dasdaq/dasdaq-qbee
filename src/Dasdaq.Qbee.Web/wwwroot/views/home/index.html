@@ -35,7 +35,7 @@
                     </tr>
                 </table>
                 <div style="margin-top: 10px;">
-                    <a href="#" class="btn btn-small"><i class="fa fa-exchange"></i> 去交易</a>
+                    <router-link :to="{ name: '/currency/:id', path: '/currency/' + x.id, params: { 'id': x.id } }" class="btn btn-small"><i class="fa fa-exchange"></i> 去交易</router-link>
                     <a v-bind:href="x.website" target="_blank" class="btn btn-small"><i class="fa fa-home"></i> 去官网</a>
                 </div>
             </div>

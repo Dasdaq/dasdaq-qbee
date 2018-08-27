@@ -278,3 +278,24 @@ a {
         background: #f8c80f;
         color: #fff;
     }
+
+.textbox {
+    border: 1px solid #999;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #999;
+    background: none;
+    border-radius: 4px;
+    outline: 0;
+}
+
+    .textbox:focus {
+        border: 1px solid #f8c80f;
+        color: #f8c80f;
+    }
+
+.label, .placeholder {
+    width: 100px;
+    text-align: left;
+    display: inline-block;
+}

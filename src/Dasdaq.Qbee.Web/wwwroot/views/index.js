@@ -12,7 +12,8 @@
         account: null,
         chainId: null,
         currencies: [],
-        active: 'home'
+        active: 'home',
+        balances: []
     },
     created: function () {
         var self = this;
@@ -24,6 +25,14 @@
     watch: {
     },
     methods: {
+        getBalance: function () {
+            var self = this;
+            if (self.account && self.account.name) {
+                app.eos.getCurrencyBalance('eosio.token', self.account.name).then(x => {
+                    self.balances = x;
+                });
+            }
+        },
         resolveUrl: function (to) {
             if (typeof to === 'string')
                 return to;
