@@ -251,3 +251,30 @@ h3.section-title {
 a {
     cursor: pointer;
 }
+
+.toggle-buttons-outer {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.toggle-buttons {
+    border: 1px solid #f8c80f;
+    display: inline-block;
+}
+
+.toggle-buttons-item {
+    color: #f8c80f;
+    font-size: 12px;
+    padding: 5px 15px;
+    text-align: center;
+    display: inline-block;
+}
+
+    .toggle-buttons-item:hover {
+        color: #f8c80f;
+    }
+
+    .toggle-buttons-item.active {
+        background: #f8c80f;
+        color: #fff;
+    }
