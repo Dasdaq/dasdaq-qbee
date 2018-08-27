@@ -5,7 +5,7 @@
 };
 
 component.created = function () {
-    
+    app.active = 'home';
 };
 
 component.methods = {

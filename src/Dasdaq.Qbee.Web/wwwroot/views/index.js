@@ -11,7 +11,8 @@
         network: null,
         account: null,
         chainId: null,
-        currencies: []
+        currencies: [],
+        active: 'home'
     },
     created: function () {
         var self = this;

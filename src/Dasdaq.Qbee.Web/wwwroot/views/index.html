@@ -31,10 +31,10 @@
             <nav id="bs-navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" class="active">首页</a>
+                        <a v-on:click="redirect('/')" v-bind:class="{ 'active': active === 'home' }">首页</a>
                     </li>
                     <li class="active">
-                        <a href="#">市场</a>
+                        <a v-on:click="redirect('/currency')" v-bind:class="{ 'active': active === 'currency' }">市场</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
