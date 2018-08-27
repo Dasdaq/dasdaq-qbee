@@ -31,7 +31,7 @@ namespace Dasdaq.Qbee.Web.Controllers
                 {
                     Account = y.account,
                     Asset = y.asset,
-                    Eos = y.total_eos / 1000.0,
+                    Eos = y.total_eos / 10000.0,
                     Type = TradeType.Sell
                 }));
                 x.Sells = lst;
@@ -45,7 +45,7 @@ namespace Dasdaq.Qbee.Web.Controllers
                 {
                     Account = y.account,
                     Asset = y.asset,
-                    Eos = y.total_eos / 1000.0,
+                    Eos = y.total_eos / 10000.0,
                     Type = TradeType.Buy
                 }));
                 x.Buys = lst;
