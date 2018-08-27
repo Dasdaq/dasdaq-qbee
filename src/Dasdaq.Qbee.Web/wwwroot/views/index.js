@@ -17,10 +17,11 @@
     },
     created: function () {
         var self = this;
-        qv.get('/api/currency', {})
+        qv.get('/api/currency', {}, 1000 * 60)
             .then(data => {
                 self.currencies = data;
             });
+        setInterval(self.getBalance, 5000);
     },
     watch: {
     },

@@ -2,9 +2,7 @@
     '/home': null,
     '/currency/all': null,
     '/currency/:id': { id: '[A-Z]{1,10}' },
-    '/ite': null,
-    '/eosio': null,
-    '/exchange': null
+    '/debug': null
 });
 
 LazyRouting.SetMirror({
