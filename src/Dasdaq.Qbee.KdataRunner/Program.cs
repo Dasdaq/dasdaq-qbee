@@ -20,7 +20,7 @@ namespace Dasdaq.Qbee.KdataRunner
         const string getTableRowsEndpoint = "/v1/chain/get_table_rows";
         const string postKdataEndpoint = "/api/Candlestick";
         const string postTransactionEndpoint = "/api/Transaction";
-        const string requestBodyTemplate = "{\"code\":\"{CONTRACT_ACCOUNT}\",\"scope\":\"{CONTRACT_ACCOUNT}\",\"table\":\"txlog\",\"json\":true}";
+        const string requestBodyTemplate = "{\"code\":\"{CONTRACT_ACCOUNT}\",\"scope\":\"{ISSUER_ACCOUNT}\",\"table\":\"txlog\",\"json\":true}";
 
         static void Main(string[] args)
         {
@@ -125,7 +125,7 @@ namespace Dasdaq.Qbee.KdataRunner
 
         static void InitTimer()
         {
-            timer = new Timer(1000 * 60);
+            timer = new Timer(1000);
             timer.Elapsed += async (object sender, ElapsedEventArgs e) => {
                 foreach(var x in config.Chain.Tokens)
                 {

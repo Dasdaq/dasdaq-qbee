@@ -17,6 +17,8 @@ namespace Dasdaq.Qbee.Web.Models
 
         public string website { get; set; }
 
+        public string issuer { get; set; }
+
         public bool pin { get; set; }
 
         public IEnumerable<Trade> Sells { get; set; }
