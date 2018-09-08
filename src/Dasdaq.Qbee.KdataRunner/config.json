@@ -1,7 +1,13 @@
 ﻿{
   "Chain": {
-    "Host": "http://127.0.0.1:8888",
-    "ContractAccount": "pomelo"
+    "Host": "https://api-kylin.eosasia.one",
+    "ContractAccount": "pomelo",
+    "Tokens": [
+      {
+        "Token": "HPY",
+        "issuer": "happyeosslot"
+      }
+    ]
   },
   "Log": {
     "CatalogPrefix": "OneBox-",

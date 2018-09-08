@@ -45,14 +45,16 @@ namespace Dasdaq.Qbee.KdataRunner
             api_client = new HttpClient() { BaseAddress = new Uri(config.Log.Api) };
         }
 
-        static string GenerateRequestBody()
+        static string GenerateRequestBody(string issuer)
         {
-            return requestBodyTemplate.Replace("{CONTRACT_ACCOUNT}", config.Chain.ContractAccount);
+            return requestBodyTemplate
+                .Replace("{CONTRACT_ACCOUNT}", config.Chain.ContractAccount)
+                .Replace("{ISSUER_ACCOUNT}", issuer);
         }
 
-        static async Task<Table<TransactionLogRow>> RequestTableAsync()
+        static async Task<Table<TransactionLogRow>> RequestTableAsync(ChainToken token)
         {
-            using (var response = await chain_client.PostAsync(getTableRowsEndpoint, new StringContent(GenerateRequestBody(), Encoding.UTF8, "application/json")))
+            using (var response = await chain_client.PostAsync(getTableRowsEndpoint, new StringContent(GenerateRequestBody(token.Issuer), Encoding.UTF8, "application/json")))
             {
                 var text = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<Table<TransactionLogRow>>(text);
@@ -125,16 +127,19 @@ namespace Dasdaq.Qbee.KdataRunner
         {
             timer = new Timer(1000 * 60);
             timer.Elapsed += async (object sender, ElapsedEventArgs e) => {
-                Console.WriteLine("Requesting table rows...");
-                var response = await RequestTableAsync();
+                foreach(var x in config.Chain.Tokens)
+                {
+                    Console.WriteLine("Requesting table rows...");
+                    var response = await RequestTableAsync(x);
 
-                Console.WriteLine($"{response.rows.Count()} rows found.");
-                var transactions = MapTableToTransactionModel(response.rows);
+                    Console.WriteLine($"{response.rows.Count()} rows found.");
+                    var transactions = MapTableToTransactionModel(response.rows);
 
-                Console.WriteLine("Uploading data...");
-                await UploadLogsAsync(GenerateTransactionData(transactions), GenerateCandlestickData(transactions));
+                    Console.WriteLine("Uploading data...");
+                    await UploadLogsAsync(GenerateTransactionData(transactions), GenerateCandlestickData(transactions));
 
-                Console.WriteLine("Timer elapse finished.");
+                    Console.WriteLine("Timer elapse finished.");
+                }
             };
             timer.Start();
         }

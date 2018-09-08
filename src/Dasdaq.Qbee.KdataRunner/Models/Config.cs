@@ -1,4 +1,6 @@
-﻿namespace Dasdaq.Qbee.KdataRunner.Models
+﻿using System.Collections.Generic;
+
+namespace Dasdaq.Qbee.KdataRunner.Models
 {
     public class Config
     {
@@ -12,6 +14,15 @@
         public string Host { get; set; }
 
         public string ContractAccount { get; set; }
+
+        public IEnumerable<ChainToken> Tokens { get; set; }
+    }
+
+    public class ChainToken
+    {
+        public string Token { get; set; }
+
+        public string Issuer { get; set; }
     }
 
     public class LogConfig
