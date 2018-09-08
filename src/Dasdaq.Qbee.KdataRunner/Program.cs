@@ -125,7 +125,7 @@ namespace Dasdaq.Qbee.KdataRunner
 
         static void InitTimer()
         {
-            timer = new Timer(1000);
+            timer = new Timer(60 * 1000);
             timer.Elapsed += async (object sender, ElapsedEventArgs e) => {
                 foreach(var x in config.Chain.Tokens)
                 {
