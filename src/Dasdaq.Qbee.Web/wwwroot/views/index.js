@@ -8,6 +8,7 @@
         },
         requiredFields: null,
         eos: null,
+        contract_account: null,
         network: null,
         account: null,
         chainId: null,
@@ -100,6 +101,7 @@
             qv.get('/api/chain/id')
                 .then(x => {
                     self.chainId = x.data.chain_id;
+                    self.contract_account = x.data.contract_account;
                     self.network = {
                         blockchain: 'eos',
                         host: x.data.host,

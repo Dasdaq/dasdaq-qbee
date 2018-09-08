@@ -27,6 +27,7 @@ namespace Dasdaq.Qbee.Web.Controllers
                 var ret = new Dictionary<string, object>();
                 var protocol = config["chain:host"].StartsWith("https") ? "https" : "http";
                 ret.Add("chain_id", dic["chain_id"]);
+                ret.Add("contract_account", config["chain:contract_account"]);
                 ret.Add("protocol", protocol);
                 ret.Add("port", config["chain:host"].Split(":").Length == 3 
                     ? Convert.ToInt32(config["chain:host"].Split(":")[2]) 
