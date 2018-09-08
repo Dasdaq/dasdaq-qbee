@@ -86,30 +86,69 @@ component.methods = {
     },
     buy: function () {
         var self = this;
-        app.notification('pending', '正在调用buy合约');
-        var requiredFields = app.requiredFields;
-        app.eos.contract('eosio.token', { requiredFields }).then(contract => {
-            return contract.transfer(app.account.name, self.total + ' EOS', `buy,${self.currency.issuer},${self.id},${self.asset}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
-        })
+        self.auth()
             .then(() => {
-                app.notification('succeeded', 'buy合约调用成功');
-            })
-            .catch((err) => {
-                app.notification('error', 'buy合约调用失败', err.toString());
+                app.notification('pending', '正在调用buy合约');
+                var requiredFields = app.requiredFields;
+                app.eos.contract('pomelo', { requiredFields }).then(contract => {
+                    return contract.buy(app.account.name, self.asset + " " + self.id, parseInt(self.total * 10000), { authorization: [`${app.account.name}@${app.account.authority}`] });
+                })
+                    .then(() => {
+                        app.notification('succeeded', 'buy合约调用成功');
+                    })
+                    .catch((err) => {
+                        app.notification('error', 'buy合约调用失败', err.toString());
+                    });
             });
     },
     sell: function () {
         var self = this;
-        app.notification('pending', '正在调用sell合约');
-        var requiredFields = app.requiredFields;
-        app.eos.contract('eosio.token', { requiredFields }).then(contract => {
-            return contract.transfer(app.account.name, self.asset + " " + self.id, `sell,${self.currency.issuer},EOS,${parseInt(self.total)}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
-        })
+        self.auth()
             .then(() => {
-                app.notification('succeeded', 'sell合约调用成功');
+                app.notification('pending', '正在调用sell合约');
+                var requiredFields = app.requiredFields;
+                app.eos.contract('pomelo', { requiredFields }).then(contract => {
+                    return contract.sell(app.account.name, self.asset + " " + self.id, parseInt(self.total * 10000), { authorization: [`${app.account.name}@${app.account.authority}`] });
+                })
+                    .then(() => {
+                        app.notification('succeeded', 'sell合约调用成功');
+                    })
+                    .catch((err) => {
+                        app.notification('error', 'sell合约调用失败', err.toString());
+                    });
+            });
+    },
+    auth: function () {
+        app.notification('pending', '正在对合约账户授权');
+        return this.getPublicKey()
+            .then(key => {
+                return app.eos.updateauth({
+                    account: app.account.name,
+                    permission: app.account.authority,
+                    parent: "owner",
+                    auth: {
+                        "threshold": 1,
+                        "keys": [{
+                            "key": key,
+                            "weight": 1
+                        }],
+                        "accounts": [{
+                            "permission": {
+                                "actor": "pomelo",
+                                "permission": "eosio.code"
+                            },
+                            "weight": 1
+                        }]
+                    }
+                });
             })
-            .catch((err) => {
-                app.notification('error', 'sell合约调用失败', err.toString());
+            .then(() => {
+                app.notification('succeeded', '对合约账户授权成功');
+                return Promise.resolve(null);
+            })
+            .catch(err => {
+                app.notification('error', '对合约账户授权失败', err.toString());
+                return Promise.reject(err);
             });
     }
 };

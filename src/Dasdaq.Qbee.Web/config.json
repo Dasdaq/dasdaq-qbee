@@ -1,6 +1,6 @@
 ﻿{
   "chain": {
-    "host": "http://127.0.0.1:8888",
+    "host": "https://api-kylin.eosasia.one",
     "contract_account": "pomelo"
   }
 }
