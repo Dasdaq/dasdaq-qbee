@@ -14,8 +14,7 @@ namespace Dasdaq.Qbee.KdataRunner.Models
         public ulong timestamp { get; set; }
         public string seller { get; set; }
         public string buyer { get; set; }
-        public string asset { get; set; }
-        public ulong total_eos { get; set; }
-        public double per { get; set; }
+        public string bid { get; set; }
+        public string ask { get; set; }
     }
 }

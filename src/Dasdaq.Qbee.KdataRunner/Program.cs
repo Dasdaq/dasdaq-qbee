@@ -68,12 +68,12 @@ namespace Dasdaq.Qbee.KdataRunner
                 yield return new TransactionLog
                 {
                     Id = (long)x.id,
-                    AssetAmount = Convert.ToDouble(x.asset.Split(' ')[0]),
-                    AssetSymbol = x.asset.Split(' ')[1],
-                    TotalEos = x.total_eos / 10000.0,
+                    AssetAmount = Convert.ToDouble(x.ask.Split(' ')[0]),
+                    AssetSymbol = x.ask.Split(' ')[1],
+                    TotalEos = Convert.ToDouble(x.bid.Split(' ')[0]),
                     Buyer = x.buyer,
                     Seller = x.seller,
-                    Per = x.per,
+                    Per = Convert.ToDouble(x.bid.Split(' ')[0]) / Convert.ToDouble(x.ask.Split(' ')[0]),
                     Time = new DateTime((long)x.timestamp / 1000, DateTimeKind.Utc)
                 };
             }
