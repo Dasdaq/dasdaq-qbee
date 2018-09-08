@@ -28,9 +28,9 @@ namespace Dasdaq.Qbee.Web.Models
     {
         public string Account { get; set; }
 
-        public string Asset { get; set; }
+        public string Ask { get; set; }
 
-        public double Eos { get; set; }
+        public string Bid { get; set; }
 
         public TradeType Type { get; set; }
     }

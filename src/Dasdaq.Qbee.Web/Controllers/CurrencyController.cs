@@ -26,12 +26,12 @@ namespace Dasdaq.Qbee.Web.Controllers
             {
                 var lst = new List<Trade>();
                 lst.AddRange(sells_rows.rows
-                    .Where(y => y.asset.Split(' ')[1] == x.id)
+                    .Where(y => y.ask.Split(' ')[1] == x.id)
                     .Select(y => new Trade
                 {
                     Account = y.account,
-                    Asset = y.asset,
-                    Eos = y.total_eos / 10000.0,
+                    Ask = y.ask,
+                    Bid = y.bid,
                     Type = TradeType.Sell
                 }));
                 x.Sells = lst;
@@ -40,12 +40,12 @@ namespace Dasdaq.Qbee.Web.Controllers
             {
                 var lst = new List<Trade>();
                 lst.AddRange(buys_rows.rows
-                    .Where(y => y.asset.Split(' ')[1] == x.id)
+                    .Where(y => y.ask.Split(' ')[1] == x.id)
                     .Select(y => new Trade
                 {
                     Account = y.account,
-                    Asset = y.asset,
-                    Eos = y.total_eos / 10000.0,
+                    Ask = y.ask,
+                    Bid = y.bid,
                     Type = TradeType.Buy
                 }));
                 x.Buys = lst;

@@ -22,9 +22,8 @@ namespace Dasdaq.Qbee.Web.Models
     public class TradeTableRow
     {
         public ulong id { get; set; }
-        public ulong total_eos { get; set; }
-        public string asset { get; set; }
+        public string bid { get; set; }
+        public string ask { get; set; }
         public string account { get; set; }
-        public double per { get; set; }
     }
 }

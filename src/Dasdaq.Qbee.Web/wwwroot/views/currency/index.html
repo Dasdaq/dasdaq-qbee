@@ -25,8 +25,8 @@
                     <tr v-for="y in currency.sells">
                         <td>{{ y.account }}</td>
                         <td>出售</td>
-                        <td>{{ y.asset }}</td>
-                        <td>{{ y.eos.toFixed(4) }} EOS</td>
+                        <td>{{ y.ask }}</td>
+                        <td>{{ y.bid }}</td>
                     </tr>
                     <tr v-if="currency && currency.sells && currency.sells.length === 0">
                         <td colspan="4">当前没有正在进行的交易</td>
@@ -38,8 +38,8 @@
                     <tr v-for="y in currency.buys">
                         <td>{{ y.account }}</td>
                         <td>购买</td>
-                        <td>{{ y.asset }}</td>
-                        <td>{{ y.eos.toFixed(4) }} EOS</td>
+                        <td>{{ y.ask }}</td>
+                        <td>{{ y.bid }}</td>
                     </tr>
                     <tr v-if="currency && currency.buys && currency.buys.length === 0">
                         <td colspan="4">当前没有正在进行的交易</td>

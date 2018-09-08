@@ -24,14 +24,14 @@
                     <tr v-for="y in x.buys">
                         <td>{{ y.account }}</td>
                         <td>出售</td>
-                        <td>{{ y.asset }}</td>
-                        <td>{{ y.eos.toFixed(4) }} EOS</td>
+                        <td>{{ y.ask }}</td>
+                        <td>{{ y.bid }}</td>
                     </tr>
                     <tr v-for="y in x.sells">
                         <td>{{ y.account }}</td>
                         <td>出售</td>
-                        <td>{{ y.asset }}</td>
-                        <td>{{ y.eos.toFixed(4) }} EOS</td>
+                        <td>{{ y.ask }}</td>
+                        <td>{{ y.bid }}</td>
                     </tr>
                 </table>
                 <div style="margin-top: 10px;">
