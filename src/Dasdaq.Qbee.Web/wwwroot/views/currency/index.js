@@ -89,7 +89,7 @@ component.methods = {
         app.notification('pending', '正在调用buy合约');
         var requiredFields = app.requiredFields;
         app.eos.contract('eosio.token', { requiredFields }).then(contract => {
-            return contract.transfer(app.account.name, app.contract_account, self.total + ' EOS', `buy,${self.currency.issuer},${self.id},${self.asset}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
+            return contract.transfer(app.account.name, app.contract_account, self.total + ' EOS', `ask,${self.asset} ${self.id},${self.currency.issuer}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
         })
             .then(() => {
                 app.notification('succeeded', 'buy合约调用成功');
@@ -103,7 +103,7 @@ component.methods = {
         app.notification('pending', '正在调用sell合约');
         var requiredFields = app.requiredFields;
         app.eos.contract('eosio.token', { requiredFields }).then(contract => {
-            return contract.transfer(app.account.name, app.contract_account, self.asset + ' ' + self.id, `sell,${self.currency.issuer},EOS,${parseInt(self.total)}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
+            return contract.transfer(app.account.name, app.contract_account, self.asset + ' ' + self.id, `ask,${parseInt(self.total)} EOS,${self.currency.issuer}`, { authorization: [`${app.account.name}@${app.account.authority}`] });
         })
             .then(() => {
                 app.notification('succeeded', 'sell合约调用成功');
