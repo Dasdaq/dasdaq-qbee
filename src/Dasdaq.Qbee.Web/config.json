@@ -1,6 +1,6 @@
 ﻿{
   "chain": {
     "host": "https://api-kylin.eosasia.one",
-    "contract_account": "pomelodex111"
+    "contract_account": "eosotcbackup"
   }
 }

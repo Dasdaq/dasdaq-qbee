@@ -22,29 +22,7 @@ namespace Dasdaq.Qbee.Web.Controllers
             var ret = JsonConvert.DeserializeObject<IEnumerable<Currency>>(text);
             foreach (var x in ret)
             {
-                var sells_rows = await RequestTableAsync<TradeTableRow>(config["chain:host"], config["chain:contract_account"], "sellorder", x.issuer);
-                var buys_rows = await RequestTableAsync<TradeTableRow>(config["chain:host"], config["chain:contract_account"], "buyorder", x.issuer);
-                
-                x.Sells = sells_rows.rows
-                    .Where(y => y.ask.Split(' ')[1] == x.id)
-                    .Select(y => new Trade
-                    {
-                        Account = y.account,
-                        Ask = y.ask,
-                        Bid = y.bid,
-                        Type = TradeType.Sell
-                    })
-                    .ToList();
-                x.Buys = buys_rows.rows
-                    .Where(y => y.ask.Split(' ')[1] == x.id)
-                    .Select(y => new Trade
-                    {
-                        Account = y.account,
-                        Ask = y.ask,
-                        Bid = y.bid,
-                        Type = TradeType.Buy
-                    })
-                    .ToList();
+                x.Orders = (await RequestTableAsync<Order>(config["chain:host"], config["chain:contract_account"], "order", x.issuer)).rows;
             }
             return ret;
         }

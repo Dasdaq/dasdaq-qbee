@@ -20,7 +20,7 @@ namespace Dasdaq.Qbee.KdataRunner
         const string getTableRowsEndpoint = "/v1/chain/get_table_rows";
         const string postKdataEndpoint = "/api/Candlestick";
         const string postTransactionEndpoint = "/api/Transaction";
-        const string requestBodyTemplate = "{\"code\":\"{CONTRACT_ACCOUNT}\",\"scope\":\"{ISSUER_ACCOUNT}\",\"table\":\"txlog\",\"json\":true}";
+        const string requestBodyTemplate = "{\"code\":\"{CONTRACT_ACCOUNT}\",\"scope\":\"{CONTRACT_ACCOUNT}\",\"table\":\"txlog\",\"json\":true}";
 
         static void Main(string[] args)
         {
@@ -45,37 +45,18 @@ namespace Dasdaq.Qbee.KdataRunner
             api_client = new HttpClient() { BaseAddress = new Uri(config.Log.Api) };
         }
 
-        static string GenerateRequestBody(string issuer)
+        static string GenerateRequestBody()
         {
             return requestBodyTemplate
-                .Replace("{CONTRACT_ACCOUNT}", config.Chain.ContractAccount)
-                .Replace("{ISSUER_ACCOUNT}", issuer);
+                .Replace("{CONTRACT_ACCOUNT}", config.Chain.ContractAccount);
         }
 
-        static async Task<Table<TransactionLogRow>> RequestTableAsync(ChainToken token)
+        static async Task<Table<TransactionLog>> RequestTableAsync()
         {
-            using (var response = await chain_client.PostAsync(getTableRowsEndpoint, new StringContent(GenerateRequestBody(token.Issuer), Encoding.UTF8, "application/json")))
+            using (var response = await chain_client.PostAsync(getTableRowsEndpoint, new StringContent(GenerateRequestBody(), Encoding.UTF8, "application/json")))
             {
                 var text = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Table<TransactionLogRow>>(text);
-            }
-        }
-
-        static IEnumerable<TransactionLog> MapTableToTransactionModel(IEnumerable<TransactionLogRow> rows)
-        {
-            foreach(var x in rows)
-            {
-                yield return new TransactionLog
-                {
-                    Id = (long)x.id,
-                    AssetAmount = Convert.ToDouble(x.ask.Split(' ')[0]),
-                    AssetSymbol = x.ask.Split(' ')[1],
-                    TotalEos = Convert.ToDouble(x.bid.Split(' ')[0]),
-                    Buyer = x.buyer,
-                    Seller = x.seller,
-                    Per = Convert.ToDouble(x.bid.Split(' ')[0]) / Convert.ToDouble(x.ask.Split(' ')[0]),
-                    Time = new DateTime((long)x.timestamp / 1000, DateTimeKind.Utc)
-                };
+                return JsonConvert.DeserializeObject<Table<TransactionLog>>(text);
             }
         }
 
@@ -87,8 +68,9 @@ namespace Dasdaq.Qbee.KdataRunner
             {
                 (ret.values as List<Candlestick>).Add(new Candlestick
                 {
-                    catalog = config.Log.CatalogPrefix + x.AssetSymbol,
-                    price = x.Per
+                    catalog = config.Log.CatalogPrefix + x.Bid.Quantity.Split(' ')[1],
+                    price = Convert.ToDouble(x.Bid.Quantity.Split(' ')[0]) / Convert.ToDouble(x.Ask.Quantity.Split(' ')[0]),
+                    utcTime = DateTime.FromFileTimeUtc(x.Timestamp * 1000)
                 });
             }
             return ret;
@@ -102,11 +84,12 @@ namespace Dasdaq.Qbee.KdataRunner
             {
                 (ret.values as List<Transaction>).Add(new Transaction
                 {
-                    catalog = config.Log.CatalogPrefix + x.AssetSymbol,
-                    price = x.TotalEos,
-                    count = x.AssetAmount,
-                    user = x.Buyer,
-                    user2 = x.Seller
+                    catalog = config.Log.CatalogPrefix + x.Bid.Quantity.Split(' ')[1],
+                    price = Convert.ToDouble(x.Ask.Quantity.Split(' ')[0]),
+                    count = Convert.ToDouble(x.Bid.Quantity.Split(' ')[0]),
+                    user = x.Asker,
+                    user2 = x.Bidder,
+                    utcTime = DateTime.FromFileTimeUtc(x.Timestamp * 1000)
                 });
             }
             return ret;
@@ -127,18 +110,22 @@ namespace Dasdaq.Qbee.KdataRunner
         {
             timer = new Timer(60 * 1000);
             timer.Elapsed += async (object sender, ElapsedEventArgs e) => {
-                foreach(var x in config.Chain.Tokens)
+                try
                 {
                     Console.WriteLine("Requesting table rows...");
-                    var response = await RequestTableAsync(x);
+                    var response = await RequestTableAsync();
 
                     Console.WriteLine($"{response.rows.Count()} rows found.");
-                    var transactions = MapTableToTransactionModel(response.rows);
+                    var transactions = response.rows;
 
                     Console.WriteLine("Uploading data...");
                     await UploadLogsAsync(GenerateTransactionData(transactions), GenerateCandlestickData(transactions));
 
                     Console.WriteLine("Timer elapse finished.");
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("[WARN] " + ex.ToString());
                 }
             };
             timer.Start();

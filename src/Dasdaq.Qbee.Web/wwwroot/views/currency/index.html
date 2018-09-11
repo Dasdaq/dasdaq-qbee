@@ -22,11 +22,11 @@
             <div v-show="active === 'kchart'" id="kchart" style="height: 300px;"></div>
             <div v-show="active === 'sellrecord'">
                 <table class="trade-table">
-                    <tr v-for="y in currency.sells">
+                    <tr v-for="y in currency.orders.filter(z => z.ask.quantity.indexOf('EOS') > 0)">
                         <td>{{ y.account }}</td>
-                        <td>出售</td>
-                        <td>{{ y.ask }}</td>
-                        <td>{{ y.bid }}</td>
+                        <td>{{ y.ask.quantity.indexOf('EOS') > 0 ? '出售' : '购买' }}</td>
+                        <td>{{ y.bid.quantity }}</td>
+                        <td>{{ y.ask.quantity }}</td>
                     </tr>
                     <tr v-if="currency && currency.sells && currency.sells.length === 0">
                         <td colspan="4">当前没有正在进行的交易</td>
@@ -35,11 +35,11 @@
             </div>
             <div v-show="active === 'buyrecord'">
                 <table class="trade-table">
-                    <tr v-for="y in currency.buys">
+                    <tr v-for="y in currency.orders.filter(z => z.ask.quantity.indexOf('EOS') <= 0)">
                         <td>{{ y.account }}</td>
-                        <td>购买</td>
-                        <td>{{ y.ask }}</td>
-                        <td>{{ y.bid }}</td>
+                        <td>{{ y.ask.quantity.indexOf('EOS') > 0 ? '出售' : '购买' }}</td>
+                        <td>{{ y.bid.quantity }}</td>
+                        <td>{{ y.ask.quantity }}</td>
                     </tr>
                     <tr v-if="currency && currency.buys && currency.buys.length === 0">
                         <td colspan="4">当前没有正在进行的交易</td>

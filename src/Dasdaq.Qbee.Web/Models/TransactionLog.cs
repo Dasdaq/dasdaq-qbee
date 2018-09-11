@@ -2,22 +2,23 @@
 
 namespace Dasdaq.Qbee.Web.Models
 {
-    public class TransactionLog
+    public class Order
     {
         public long Id { get; set; }
 
-        public string Seller { get; set; }
+        public string Owner { get; set; }
 
-        public string Buyer { get; set; }
+        public OrderAsset Bid { get; set; }
 
-        public double AssetAmount { get; set; }
+        public OrderAsset Ask { get; set; }
 
-        public string AssetSymbol { get; set; }
+        public long Timestamp { get; set; }
+    }
 
-        public double TotalEos { get; set; }
+    public class OrderAsset
+    {
+        public string Quantity { get; set; }
 
-        public double Per { get; set; }
-
-        public DateTime Time { get; set; }
+        public string Contract { get; set; }
     }
 }

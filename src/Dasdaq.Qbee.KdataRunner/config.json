@@ -1,7 +1,7 @@
 ﻿{
   "Chain": {
     "Host": "https://api-kylin.eosasia.one",
-    "ContractAccount": "pomelodex111",
+    "ContractAccount": "eosotcbackup",
     "Tokens": [
       {
         "Token": "HPY",

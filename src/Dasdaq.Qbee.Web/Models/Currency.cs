@@ -21,19 +21,6 @@ namespace Dasdaq.Qbee.Web.Models
 
         public bool pin { get; set; }
 
-        public IEnumerable<Trade> Sells { get; set; }
-
-        public IEnumerable<Trade> Buys { get; set; }
-    }
-
-    public class Trade
-    {
-        public string Account { get; set; }
-
-        public string Ask { get; set; }
-
-        public string Bid { get; set; }
-
-        public TradeType Type { get; set; }
+        public IEnumerable<Order> Orders { get; set; }
     }
 }

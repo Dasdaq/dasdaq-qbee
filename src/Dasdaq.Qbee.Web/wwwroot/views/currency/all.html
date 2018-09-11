@@ -11,24 +11,18 @@
         <div class="row">
             <div class="col-md-6" v-for="x in $root.currencies">
                 <div class="trade-tile">
-                    <div class="trade-count">{{ x.buys.length + x.sells.length }}</div>
+                    <div class="trade-count">{{ x.orders.length }}</div>
                     <div class="trade-subtitle">正在进行</div>
                 </div>
                 <h3 class="section-title">{{ x.id }}</h3>
                 <div><div class="section-title-underscore"></div></div>
                 <div class="currency-description">{{ x.description }}</div>
                 <table class="trade-table">
-                    <tr v-for="y in x.buys">
+                    <tr v-for="y in x.orders.slice(0, 5)">
                         <td>{{ y.account }}</td>
-                        <td>出售</td>
-                        <td>{{ y.ask }}</td>
-                        <td>{{ y.bid }}</td>
-                    </tr>
-                    <tr v-for="y in x.sells">
-                        <td>{{ y.account }}</td>
-                        <td>出售</td>
-                        <td>{{ y.ask }}</td>
-                        <td>{{ y.bid }}</td>
+                        <td>{{ y.ask.quantity.indexOf('EOS') > 0 ? '出售' : '购买' }}</td>
+                        <td>{{ y.bid.quantity }}</td>
+                        <td>{{ y.ask.quantity }}</td>
                     </tr>
                 </table>
                 <div style="margin-top: 10px;">
